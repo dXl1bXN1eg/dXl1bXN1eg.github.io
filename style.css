@@ -1,0 +1,278 @@
+/* Genel ayarlar */
+body {
+    font-family: 'Courier New', Courier, monospace;
+    background-color: black;
+    color: #00ff00;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    height: 100vh;
+}
+
+/* Matrix effect */
+.matrix {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.matrix span {
+    position: absolute;
+    color: #00ff00;
+    font-size: 18px;
+    white-space: nowrap;
+    font-family: 'Courier New', Courier, monospace;
+    animation: fall 5s linear infinite;
+    will-change: transform;
+}
+
+/* Başlangıçtaki stiller */
+.center-message, .center-hacking {
+    transition: all 0.5s ease; /* Yumuşak geçiş efekti */
+}
+
+/* İlk div kaybolduğunda */
+.center-message {
+    opacity: 1;
+    transform: translateY(0); /* Başlangıç konumu */
+}
+
+.center-message.hide {
+    opacity: 0; /* Görünürlüğü kaybettirir */
+    transform: translateY(-20px); /* Yukarı kaydırma efekti */
+}
+
+/* İkinci div geldiğinde */
+.center-hacking {
+    opacity: 0;
+    transform: translateY(20px); /* Başlangıçta aşağıda görünür */
+    position: absolute; /* absolute positioning kullanarak ekranın ortasında olacak */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Ekranın tam ortasına yerleştirir */
+    width: 1500px;
+    height: 700px;
+}
+
+.center-hacking.show {
+    opacity: 1;
+    transform: translate(-50%, -50%); /* Konumunu yerine yerleştir */
+}
+
+/* Center message styling */
+.center-message {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    z-index: 10;
+    padding: 20px;
+    padding-bottom: 60px;
+    opacity: 1;
+    border: 2px solid #00ff00; 
+    border-radius: 10px; 
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.7); 
+    background-color: rgba(0, 0, 0, 0.8); 
+}
+
+.center-message h1 {
+    font-size: 48px;
+    margin-bottom: 10px;
+}
+
+.center-message p {
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+.center-message a {
+    color: #00ff00;
+    text-decoration: none;
+    font-size: 20px;
+    border: 2px solid #00ff00;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+.center-message a:hover {
+    background-color: #00ff00;
+    color: black;
+}
+
+/* Keyframes for matrix effect */
+@keyframes fall {
+    0% {
+        transform: translateY(-100vh); 
+    }
+    100% {
+        transform: translateY(100vh); 
+    }
+}
+
+/* Second message styling */
+.center-hacking {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    text-align: center;
+    z-index: 10;
+    opacity: 1;
+    border: 2px solid #00ff00; 
+    border-radius: 10px; 
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.7); 
+    background-color: rgba(0, 0, 0, 0.8); 
+    width: 1500px;
+    height: 700px;
+    margin: 0;
+}
+
+.message-left {
+    position: absolute; /* Konumlandırma hatası düzeltildi */
+    top: 0;
+    left: 0;
+    text-align: center;
+    z-index: 10;
+    opacity: 1;
+    border: 2px solid #00ff00; 
+    border-radius: 10px; 
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.7); 
+    background-color: rgba(0, 0, 0, 0.8); 
+    width: 400px;
+    height: 700px;
+}
+
+.message-left img {
+    width: 300px;
+    height: 230px;
+    border-radius: 50%;
+    opacity: 0.5;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5);
+    filter: brightness(1.2) contrast(1.1);
+}
+
+
+.profile-section {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.7);
+    z-index: 100;
+    width: 300px;
+    text-align: center;
+}
+
+.profile-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.profile-image {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    margin-bottom: 20px;
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.7);
+}
+
+.profile-text h3 {
+    color: #00ff00;
+    margin-bottom: 10px;
+}
+
+.profile-text p {
+    color: #b5ffb1;
+    margin-bottom: 20px;
+    font-size: 16px;
+}
+
+.profile-link {
+    color: #00ff00;
+    font-size: 18px;
+    text-decoration: none;
+    padding: 10px 20px;
+    border: 2px solid #00ff00;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+.profile-link:hover {
+    background-color: #00ff00;
+    color: black;
+}
+
+/* Geliştirme bölümüne uygun düzenlemeler */
+.profil-gelisim {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.9);
+    position: relative;
+}
+
+/* Dünya animasyonu - Oval formda */
+.world {
+    width: 400px;  /* Genişliği artırarak oval yapıyoruz */
+    height: 250px; /* Yüksekliği daha küçük yapıyoruz */
+    background-color: #1a1a1a;
+    border-radius: 50%; /* Yuvarlaklık için */
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.7); /* Gölgeli efekt */
+    cursor: grab; /* Sürüklenebilir olduğunu belirten işaretçi */
+    transition: transform 0.2s ease-in-out; /* Sürüklenince dönüş efektini yumuşat */
+}
+
+.world-inner {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: radial-gradient(circle, #0f0, #0a0); /* Yeşil renkli iç efekt */
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.world:active {
+    cursor: grabbing;
+}
+
+
+/* Profil kısmındaki içeriklerin hizalanması */
+.message-left, .message-right {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.message-left img {
+    max-width: 200px;
+    max-height: 200px;
+    border-radius: 50%;
+}
+
+/* Profil ve dünya düzeni */
+#second-message {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.message-left {
+    margin-right: 20px;
+}

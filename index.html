@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo</title>
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+<body>
+
+    <div id="root"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/react@18.2.0/umd/react.production.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+
+    <div class="matrix"></div>
+
+    <script type="text/babel">
+        const { useState, useRef, useEffect } = React;
+    
+        function Start({ handleClick }) {
+            return (
+                <div>
+                    <h1>Happy Hacking 👋</h1>
+                    <h2>Hacker bölgesine girdiniz. Riski size ait olmak üzere devam edin.</h2>
+                    <a href="#start" onClick={handleClick}>Başla</a>
+                </div>
+            );
+        }
+
+        function GitHubProfile() {
+            return (
+                <div className="profile-section">
+                    <h2>GitHub Profilim</h2>
+                    <div className="profile-info">
+                        <img src="profil.png" alt="GitHub Avatar" className="profile-image" />
+                        <div className="profile-text">
+                            <h3>Merhaba, Benim Adım dXl1bXN1eg</h3>
+                            <p>Ben bir yazılım geliştiricisiyim. Web geliştirme, mobil uygulamalar ve yapay zeka projelerinde çalışıyorum. GitHub profilimi keşfetmek için aşağıya tıklayın!</p>
+                            <a href="https://github.com/dXl1bXN1eg" target="_blank" className="profile-link">GitHub Profilime Git</a>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        function Geliştirme() {
+            const [isDragging, setIsDragging] = useState(false);  // Sürükleme işlemi durumunu takip etmek için state
+            const [rotation, setRotation] = useState({ x: 0, y: 0 });  // Dünya döndürme açıları
+            const lastPosition = useRef({ x: 0, y: 0 });  // Sürükleme başladığında son pozisyonu kaydetmek için ref
+
+            // Mouse ile sürükleme başladığında
+            const handleMouseDown = (e) => {
+                setIsDragging(true);  // Sürükleme başladığında durumun 'true' olmasını sağla
+                lastPosition.current = { x: e.clientX, y: e.clientY };  // İlk mouse pozisyonunu kaydet
+            };
+
+            // Mouse ile sürükleme bittiğinde
+            const handleMouseUp = () => {
+                setIsDragging(false);  // Sürükleme durduğunda durumu 'false' yap
+            };
+
+            // Mouse hareketini takip ederek döndürmeyi sağla
+            const handleMouseMove = (e) => {
+                if (!isDragging) return;  // Eğer sürükleme yoksa hiçbir şey yapma
+
+                const deltaX = e.clientX - lastPosition.current.x;  // X eksenindeki hareket farkı
+                const deltaY = e.clientY - lastPosition.current.y;  // Y eksenindeki hareket farkı
+
+                // Yeni döndürme açılarını hesapla ve state'i güncelle
+                setRotation((prevRotation) => ({
+                    x: prevRotation.x + deltaY * 0.5,  // Y hareketine bağlı döndürme
+                    y: prevRotation.y - deltaX * 0.5,  // X hareketine bağlı döndürme
+                }));
+
+                lastPosition.current = { x: e.clientX, y: e.clientY };  // Yeni pozisyonu kaydet
+            };
+
+            // Event listener'ları mousemove ve mouseup için ayarla
+            useEffect(() => {
+                window.addEventListener('mousemove', handleMouseMove);
+                window.addEventListener('mouseup', handleMouseUp);
+
+                return () => {
+                    window.removeEventListener('mousemove', handleMouseMove);
+                    window.removeEventListener('mouseup', handleMouseUp);
+                };
+            }, [isDragging]);
+
+            return (
+                <div
+                    className="world"
+                    onMouseDown={handleMouseDown}
+                    style={{
+                        transform: `rotateX(${rotation.x}deg) rotateY(${rotation.y}deg)`,  // Dünya döndürme işlemi
+                    }}
+                >
+                    <div className="world-inner"></div>
+                </div>
+            );
+        }
+
+        class HelloDünya extends React.Component {
+            constructor() {
+                super();
+                this.state = {
+                    isFirstDivVisible: true,
+                    isSecondDivVisible: false,
+                };
+            }
+
+            render() {
+                const { isFirstDivVisible, isSecondDivVisible } = this.state;
+
+                return (
+                    <div>
+                        {/* İlk div */}
+                        {isFirstDivVisible && (
+                            <div
+                                id="center-message-close"
+                                className={`center-message ${isFirstDivVisible ? '' : 'hide'}`}
+                            >
+                                <Start handleClick={() => {
+                                    this.setState({ isFirstDivVisible: false });
+                                    // Kısa bir gecikme ile ikinci div'i görünür yapalım
+                                    setTimeout(() => {
+                                        this.setState({ isSecondDivVisible: true });
+                                    }, 500);  // 500ms sonra ikinci div görünür olur
+                                }} />
+                            </div>
+                        )}
+
+                        {/* İkinci div */}
+                        {isSecondDivVisible && (
+                            <div
+                                id="second-message"
+                                className={`center-hacking ${isSecondDivVisible ? 'show' : ''}`}
+                            >
+                                <div id="second-left" className="message-left">
+                                    <GitHubProfile />
+                                </div>
+                                <div id="second-right" className="message-right">
+                                    <Geliştirme />
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                );
+            }
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<HelloDünya />);
+    </script>
+
+    <script src="scripts/script.js"></script>
+
+</body>
+</html>
