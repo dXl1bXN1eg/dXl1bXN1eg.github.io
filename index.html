@@ -8,17 +8,49 @@
 </head>
 <body>
 
+    <div class="matrix"></div>
     <div id="root"></div>
 
+    <!-- React ve Babel kütüphaneleri -->
     <script src="https://cdn.jsdelivr.net/npm/react@18.2.0/umd/react.production.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
-
-    <div class="matrix"></div>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
     <script type="text/babel">
-        const { useState, useRef, useEffect } = React;
-    
+        const { useState, useEffect } = React;
+
+        // Markdown Viewer Bileşeni
+        function MarkdownViewer({ markdownUrl }) {
+            const [content, setContent] = useState('');
+            const [loading, setLoading] = useState(true);
+            const [error, setError] = useState(null);
+
+            useEffect(() => {
+                fetch(markdownUrl)
+                    .then((response) => response.text())
+                    .then((data) => {
+                        const htmlContent = marked(data);
+                        setContent(htmlContent);
+                        setLoading(false);
+                    })
+                    .catch((err) => {
+                        setError('Hata: Markdown dosyası alınamadı.');
+                        setLoading(false);
+                    });
+            }, [markdownUrl]);
+
+            if (loading) {
+                return <p>Yükleniyor...</p>;
+            }
+
+            if (error) {
+                return <p>{error}</p>;
+            }
+
+            return <div dangerouslySetInnerHTML={{ __html: content }} />;
+        }
+
         function Start({ handleClick }) {
             return (
                 <div>
@@ -37,7 +69,7 @@
                         <img src="profil.png" alt="GitHub Avatar" className="profile-image" />
                         <div className="profile-text">
                             <h3>Merhaba, Benim Adım dXl1bXN1eg</h3>
-                            <p>Ben bir yazılım geliştiricisiyim. Web geliştirme, mobil uygulamalar ve yapay zeka projelerinde çalışıyorum. GitHub profilimi keşfetmek için aşağıya tıklayın!</p>
+                            <p>Bir Siber Güvenlik Uzmanı olarak çalışırken, boş zamanlarımda Web Tasarımı, Yapay Zeka ve Masaüstü Projeleri gibi alanlarda projeler geliştiriyorum. Modern teknolojiler ve yaratıcı çözümlerle işlevsel ve estetik uygulamalar oluşturuyorum. GitHub profilimi keşfetmek için aşağıya tıklayın!</p>
                             <a href="https://github.com/dXl1bXN1eg" target="_blank" className="profile-link">GitHub Profilime Git</a>
                         </div>
                     </div>
@@ -45,58 +77,56 @@
             );
         }
 
-        function Geliştirme() {
-            const [isDragging, setIsDragging] = useState(false);  // Sürükleme işlemi durumunu takip etmek için state
-            const [rotation, setRotation] = useState({ x: 0, y: 0 });  // Dünya döndürme açıları
-            const lastPosition = useRef({ x: 0, y: 0 });  // Sürükleme başladığında son pozisyonu kaydetmek için ref
+        function TabContent({ id, title, children, activeTab }) {
+            return (
+                <div id={id} className={`tabcontent ${activeTab === id ? 'active' : ''}`}>
+                    <h3>{title}</h3>
+                    <p>{children}</p>
+                </div>
+            );
+        }
 
-            // Mouse ile sürükleme başladığında
-            const handleMouseDown = (e) => {
-                setIsDragging(true);  // Sürükleme başladığında durumun 'true' olmasını sağla
-                lastPosition.current = { x: e.clientX, y: e.clientY };  // İlk mouse pozisyonunu kaydet
+        function MessageRight() {
+            const [activeTab, setActiveTab] = useState("React");
+
+            const handleTabClick = (tab) => {
+                setActiveTab(tab);
             };
-
-            // Mouse ile sürükleme bittiğinde
-            const handleMouseUp = () => {
-                setIsDragging(false);  // Sürükleme durduğunda durumu 'false' yap
-            };
-
-            // Mouse hareketini takip ederek döndürmeyi sağla
-            const handleMouseMove = (e) => {
-                if (!isDragging) return;  // Eğer sürükleme yoksa hiçbir şey yapma
-
-                const deltaX = e.clientX - lastPosition.current.x;  // X eksenindeki hareket farkı
-                const deltaY = e.clientY - lastPosition.current.y;  // Y eksenindeki hareket farkı
-
-                // Yeni döndürme açılarını hesapla ve state'i güncelle
-                setRotation((prevRotation) => ({
-                    x: prevRotation.x + deltaY * 0.5,  // Y hareketine bağlı döndürme
-                    y: prevRotation.y - deltaX * 0.5,  // X hareketine bağlı döndürme
-                }));
-
-                lastPosition.current = { x: e.clientX, y: e.clientY };  // Yeni pozisyonu kaydet
-            };
-
-            // Event listener'ları mousemove ve mouseup için ayarla
-            useEffect(() => {
-                window.addEventListener('mousemove', handleMouseMove);
-                window.addEventListener('mouseup', handleMouseUp);
-
-                return () => {
-                    window.removeEventListener('mousemove', handleMouseMove);
-                    window.removeEventListener('mouseup', handleMouseUp);
-                };
-            }, [isDragging]);
 
             return (
-                <div
-                    className="world"
-                    onMouseDown={handleMouseDown}
-                    style={{
-                        transform: `rotateX(${rotation.x}deg) rotateY(${rotation.y}deg)`,  // Dünya döndürme işlemi
-                    }}
-                >
-                    <div className="world-inner"></div>
+                <div className="message-right-container">
+                    <div className="tab">
+                        <button
+                            className={`tablinks ${activeTab === "React" ? "active" : ""}`}
+                            onClick={() => handleTabClick("React")}
+                        >
+                            React JS
+                        </button>
+                        <button
+                            className={`tablinks ${activeTab === "Python" ? "active" : ""}`}
+                            onClick={() => handleTabClick("Python")}
+                        >
+                            Python
+                        </button>
+                        <button
+                            className={`tablinks ${activeTab === "Demo" ? "active" : ""}`}
+                            onClick={() => handleTabClick("Demo")}
+                        >
+                            Siber Güvenlik
+                        </button>
+                    </div>
+
+                    <TabContent id="React" activeTab={activeTab}>
+                        <h1>React Programlama</h1>
+                        <MarkdownViewer markdownUrl="https://github.com/dXl1bXN1eg/React-JS/blob/main/README.md" />
+                    </TabContent>
+                    <TabContent id="Python" activeTab={activeTab}>
+                        <h1>Python Programlama</h1>
+                        <MarkdownViewer markdownUrl="https://github.com/dXl1bXN1eg/Python/blob/main/README.md" />
+                    </TabContent>
+                    <TabContent id="Demo" activeTab={activeTab}>
+                        <h1>Çalışmalar Sürüyor ..</h1>
+                    </TabContent>
                 </div>
             );
         }
@@ -141,7 +171,7 @@
                                     <GitHubProfile />
                                 </div>
                                 <div id="second-right" className="message-right">
-                                    <Geliştirme />
+                                    <MessageRight />
                                 </div>
                             </div>
                         )}
