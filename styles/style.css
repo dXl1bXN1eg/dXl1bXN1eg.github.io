@@ -222,36 +222,6 @@ body {
     position: relative;
 }
 
-/* Dünya animasyonu - Oval formda */
-.world {
-    width: 400px;  /* Genişliği artırarak oval yapıyoruz */
-    height: 250px; /* Yüksekliği daha küçük yapıyoruz */
-    background-color: #1a1a1a;
-    border-radius: 50%; /* Yuvarlaklık için */
-    position: absolute;
-    top: 40%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    box-shadow: 0 0 15px rgba(0, 255, 0, 0.7); /* Gölgeli efekt */
-    cursor: grab; /* Sürüklenebilir olduğunu belirten işaretçi */
-    transition: transform 0.2s ease-in-out; /* Sürüklenince dönüş efektini yumuşat */
-}
-
-.world-inner {
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    background: radial-gradient(circle, #0f0, #0a0); /* Yeşil renkli iç efekt */
-    position: absolute;
-    top: 0;
-    left: 0;
-}
-
-.world:active {
-    cursor: grabbing;
-}
-
-
 /* Profil kısmındaki içeriklerin hizalanması */
 .message-left, .message-right {
     display: flex;
@@ -275,4 +245,214 @@ body {
 
 .message-left {
     margin-right: 20px;
+}
+
+.message-right-container {
+    margin:0px;
+    padding:0px;
+    position: absolute;
+    left:420px;
+    top:20px;
+    width: 1050px;
+    height: 666px;
+    border-radius: 10px;
+    border:1px solid yellowgreen;
+}
+
+.tab {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    color:white;
+  }
+  
+  /* Style the buttons inside the tab */
+  .tab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    font-size: 17px;
+  }
+  
+  /* Change background color of buttons on hover */
+  .tab button:hover {
+    background-color: #ddd;
+  }
+  
+  /* Create an active/current tablink class */
+  .tab button.active {
+    background-color: #ccc;
+  }
+  
+  /* Style the tab content */
+  .tabcontent {
+    display: none;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-top: none;
+    color:white;
+}
+
+
+/* Tab container */
+.tab {
+    overflow: hidden;
+    border: 1px solid #333;
+    color: #0f0; /* Neon green text */
+    background-color: #000;
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+    border-radius: 10px;
+    background-color: inherit;
+    float: left;
+    border: 1px solid #333;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    font-size: 17px;
+    color: #0f0; /* Neon green text */
+    text-transform: uppercase;
+    font-family: 'Courier New', Courier, monospace;
+    letter-spacing: 1px;
+}
+
+.tab button:hover {
+    background-color: #0f0; /* Neon green hover effect */
+    color: black;
+    box-shadow: 0 0 10px 2px #0f0; /* Glow effect */
+}
+
+.tab button.active {
+    background-color: #333;
+    color: #0f0;
+    box-shadow: 0 0 15px 3px #0f0; /* More intense glow when active */
+}
+
+
+
+/* Active tab content */
+.tabcontent.active {
+    display: block;
+    box-shadow: 0 0 15px 5px #0f0;
+}
+
+
+/* Tab content styles for the hacker theme */
+.tabcontent {
+    display: none;
+    padding: 30px;
+    background-color: #111; /* Very dark background to enhance the neon effect */
+    color: #0f0; /* Neon green text color */
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 18px;
+    border: 2px solid #333; /* Dark border */
+    border-radius: 10px;
+    box-shadow: 0 0 15px 5px #0f0; /* Neon glow effect */
+    text-align: left;
+    letter-spacing: 1px;
+    line-height: 1.6;
+    height: 555px; 
+    overflow-y: auto; 
+    background-image: url('https://www.transparenttextures.com/patterns/asfalt-dark.png'); 
+    background-size: cover;
+}
+
+.tabcontent.active {
+    display: block;
+    box-shadow: 0 0 20px 7px #0f0; 
+    transition: box-shadow 0.3s ease-in-out;
+}
+.tabcontent::-webkit-scrollbar {
+    width: 12px; /* Width of the scrollbar */
+}
+
+.tabcontent::-webkit-scrollbar-track {
+    background: #222; 
+    border-radius: 10px;
+}
+
+.tabcontent::-webkit-scrollbar-thumb {
+    background-color: #0f0; /* Color of the scrollbar thumb (the part that moves) */
+    border-radius: 10px;
+    border: 2px solid #222; /* Adding a border to the thumb to make it pop */
+}
+
+.tabcontent::-webkit-scrollbar-thumb:hover {
+    background-color: #33ff33; /* Hover effect for the thumb */
+}
+
+/* Add a header style for educational content */
+.tabcontent h1 {
+    font-size: 28px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+    color: #0f0;
+    text-shadow: 0 0 10px #0f0, 0 0 20px #0f0;
+    border-bottom: 2px solid #0f0;
+    padding-bottom: 10px;
+}
+
+/* Paragraphs for the content */
+.tabcontent p {
+    color: #b2ff66; /* A lighter neon green for text */
+    font-size: 18px;
+    line-height: 1.8;
+    margin-bottom: 15px;
+}
+
+/* Code block styling to enhance hacker theme */
+.tabcontent pre {
+    background-color: #111; /* Dark background */
+    border: 1px solid #333;
+    border-radius: 5px;
+    padding: 15px;
+    color: #33ff33; /* Neon green color for code */
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 16px;
+    overflow-x: auto;
+    box-shadow: 0 0 5px 2px #0f0;
+    margin-top: 20px;
+}
+
+/* Links in the tabcontent */
+.tabcontent a {
+    color: #0f0;
+    text-decoration: none;
+    border-bottom: 1px solid #0f0;
+    transition: all 0.3s ease;
+}
+
+.tabcontent a:hover {
+    color: #33ff33;
+    text-decoration: underline;
+    box-shadow: 0 0 10px 2px #33ff33; /* Neon underline effect */
+}
+
+/* Styling for bullet lists */
+.tabcontent ul {
+    list-style-type: square;
+    margin-left: 20px;
+}
+
+.tabcontent ul li {
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+
+/* Styling for numbered lists */
+.tabcontent ol {
+    list-style-type: decimal;
+    margin-left: 20px;
+}
+
+.tabcontent ol li {
+    font-size: 16px;
+    margin-bottom: 8px;
 }
