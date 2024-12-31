@@ -456,3 +456,19 @@ body {
     font-size: 16px;
     margin-bottom: 8px;
 }
+
+#container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.flying-text {
+    position: absolute;
+    color: lime; /* Yeşil renk */
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 24px;
+    white-space: nowrap;
+    animation: moveDown linear; /* Animasyon ekle */
+}
