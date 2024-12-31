@@ -472,3 +472,11 @@ body {
     white-space: nowrap;
     animation: moveDown linear; /* Animasyon ekle */
 }
+@keyframes moveDown {
+    from {
+        transform: translateY(-100px); /* Yukarıdan başla */
+        }
+    to {
+        transform: translateY(100vh); /* Aşağıya doğru hareket et */
+        }
+}
