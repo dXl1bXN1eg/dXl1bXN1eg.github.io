@@ -1,50 +1,24 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const matrix = document.querySelector('.matrix');
-    const numColumns = Math.floor(window.innerWidth / 18);
-    const characters = '01';
-    
-    const spanElements = [];
+const container = document.getElementById('matrix');
 
-    function randomCharacter() {
-        return characters.charAt(Math.floor(Math.random() * characters.length));
-    }
+            function createFlyingText() {
+                const textElement = document.createElement('div');
+                textElement.classList.add('flying-text');
+                textElement.textContent = Math.random() > 0.5 ? '0' : '1'; // Rastgele 0 veya 1
 
-    // Matrix'in başlangıcını oluştur
-    function createMatrix() {
-        for (let i = 0; i < numColumns; i++) {
-            let span = document.createElement('span');
-            span.style.left = `${i * 18}px`;
-            span.style.animationDelay = `${Math.random() * 5}s`;
-            span.innerHTML = randomCharacter();
-            matrix.appendChild(span);
-            spanElements.push(span);
+                // Başlangıç pozisyonu
+                textElement.style.left = Math.random() * 100 + 'vw'; // Ekranın genişliği
 
-            span.style.animation = `fall ${5 + Math.random() * 3}s linear infinite`;
-        }
-    }
+                container.appendChild(textElement);
 
-    // Animasyon başlatılmadan önce gerekli olanları hemen yükleyelim
-    createMatrix();
+                // Animasyonu başlat
+                const duration = Math.random() * 3 + 2; // 2-5 saniye arası
+                textElement.style.animationDuration = duration + 's';
 
-    // Karakter güncelleme işlemini optimize et
-    function updateMatrix() {
-        for (let i = 0; i < spanElements.length; i++) {
-            if (Math.random() > 0.95) {
-                spanElements[i].innerHTML = randomCharacter();
+                // Animasyon bittiğinde elemanı kaldır
+                setTimeout(() => {
+                    textElement.remove();
+                }, duration * 1000);
             }
-        }
-    }
 
-    // İlk animasyonu hemen başlatmak yerine bir süre sonra başlatabiliriz
-    setTimeout(() => {
-        function animate() {
-            updateMatrix();
-            requestAnimationFrame(animate);
-        }
-
-        animate();
-    }, 100);  // 100ms sonra animasyonu başlat
-});
-
-
-
+            // Yeni yazı oluşturma süresi
+            setInterval(createFlyingText, 500); // Her 500 ms'de bir yeni yazı oluştur
