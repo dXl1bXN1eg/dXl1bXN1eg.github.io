@@ -156,7 +156,6 @@
 
                 return (
                     <div>
-                        {/* İlk div */}
                         {isFirstDivVisible && (
                             <div
                                 id="center-message-close"
@@ -164,15 +163,13 @@
                             >
                                 <Start handleClick={() => {
                                     this.setState({ isFirstDivVisible: false });
-                                    // Kısa bir gecikme ile ikinci div'i görünür yapalım
                                     setTimeout(() => {
                                         this.setState({ isSecondDivVisible: true });
-                                    }, 500);  // 500ms sonra ikinci div görünür olur
+                                    }, 500);  
                                 }} />
                             </div>
                         )}
 
-                        {/* İkinci div */}
                         {isSecondDivVisible && (
                             <div
                                 id="second-message"
