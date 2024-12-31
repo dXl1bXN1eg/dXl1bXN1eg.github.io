@@ -1,4 +1,4 @@
-const container = document.getElementById('container');
+const container = document.getElementById('root');
 
 function createFlyingText() {
  const textElement = document.createElement('div');
