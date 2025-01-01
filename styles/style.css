@@ -480,3 +480,31 @@ body {
         transform: translateY(100vh); /* Aşağıya doğru hareket et */
         }
 }
+
+@media (max-width: 768px) {
+        .center-message h1 {
+            display: none;
+        }
+        .center-message h2 {
+            display: none;
+        }
+        .center-message a {
+            display: none;
+        }
+        .center-message span {
+            display: none;
+        }
+        #second-message {
+            display: none;
+        }
+        #profil-android {
+            display: block;
+        }
+}
+
+@media (min-width: 768px) {
+    #profil-android {
+        display: none;
+    }
+}
+      
