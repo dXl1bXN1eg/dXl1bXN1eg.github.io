@@ -2,24 +2,89 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>dXl1bXN1eg | Kişisel Web Sitesi</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="styles/style.css">
+  <script src="https://kit.fontawesome.com/5b5629ecb9.js" crossorigin="anonymous"></script>
 </head>
 <body>
-  <div class="container">
-    <div class="profile-card">
-      <div class="avatar">
-        <span>👤</span>
-      </div>
-      <h1 class="name">dXl1bXN1eg</h1>
-      <p class="bio">Kişisel web sitesi</p>
-      <!-- Sosyal medya yok -->
+  <aside class="sidebar">
+    <div class="avatar">
+      <img src="profil.png" alt="Avatar">
+      <h2>dXl1bXN1eg</h2>
     </div>
+    <nav>
+      <a href="#home" class="active"><i class="fas fa-home"></i><span>Anasayfa</span></a>
+      <a href="#about"><i class="fas fa-user"></i><span>Hakkımda</span></a>
+      <a href="#portfolio"><i class="fas fa-images"></i><span>Fotoğraflar</span></a>
+      <a href="#contact"><i class="fas fa-envelope"></i><span>İletişim</span></a>
+    </nav>
+  </aside>
+
+  <div class="main-content" id="home">
+    <section class="hero">
+      <h1>Ben <span style="color: #7C5FFF;">dXl1bXN1eg</span></h1>
+      <p>Yazılım geliştirici ve teknoloji tutkunu</p>
+      <img src="profil.png" alt="Profil" class="hero-img">
+    </section>
+
+    <section class="about" id="about">
+      <h2>Hakkımda</h2>
+      <hr>
+      <p>Merhaba! Ben dXl1bXN1eg. Kod yazmayı, yeni teknolojilerle uğraşmayı ve öğrenmeyi seviyorum. Projeler üretiyor ve kendimi sürekli geliştiriyorum.</p>
+      <div class="skills">
+        <h3>Yeteneklerim</h3>
+        <div>
+          <label>HTML/CSS</label>
+          <div class="bar"><div style="width:90%">90%</div></div>
+        </div>
+        <div>
+          <label>JavaScript</label>
+          <div class="bar"><div style="width:75%">75%</div></div>
+        </div>
+        <div>
+          <label>Python</label>
+          <div class="bar"><div style="width:85%">85%</div></div>
+        </div>
+      </div>
+      <div class="stats">
+        <div><b>10+</b><span>Proje</span></div>
+        <div><b>5+</b><span>Mutlu Müşteri</span></div>
+        <div><b>20+</b><span>Toplantı</span></div>
+      </div>
+      <a href="#" class="button"><i class="fas fa-download"></i> Özgeçmişi İndir</a>
+    </section>
+
+    <section class="portfolio" id="portfolio">
+      <h2>Fotoğraflarım</h2>
+      <hr>
+      <div class="gallery">
+        <img src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80" alt="Galeri">
+        <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80" alt="Galeri">
+        <img src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=400&q=80" alt="Galeri">
+        <img src="https://images.unsplash.com/photo-1519985176271-adb1088fa94c?auto=format&fit=crop&w=400&q=80" alt="Galeri">
+      </div>
+    </section>
+
+    <section class="contact" id="contact">
+      <h2>İletişim</h2>
+      <hr>
+      <div class="contact-info">
+        <div><i class="fas fa-map-marker-alt"></i> İstanbul, Türkiye</div>
+        <div><i class="fas fa-phone"></i> +90 555 555 55 55</div>
+        <div><i class="fas fa-envelope"></i> mail@example.com</div>
+      </div>
+      <form>
+        <input type="text" placeholder="Adınız" required>
+        <input type="email" placeholder="E-posta" required>
+        <input type="text" placeholder="Konu" required>
+        <textarea placeholder="Mesajınız" required></textarea>
+        <button type="submit"><i class="fas fa-paper-plane"></i> Gönder</button>
+      </form>
+    </section>
+    <footer>
+      <small>© 2024 dXl1bXN1eg | Tüm hakları saklıdır.</small>
+    </footer>
   </div>
-  <footer>
-    2024 &copy; dXl1bXN1eg
-  </footer>
-  <script src="script.js"></script>
 </body>
 </html>

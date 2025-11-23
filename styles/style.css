@@ -1,510 +1,301 @@
-/* Genel ayarlar */
 body {
-    font-family: 'Courier New', Courier, monospace;
-    background-color: black;
-    color: #00ff00;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    height: 100vh;
+  margin: 0;
+  font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+  background: #1D1C28;
+  color: #fff;
+}
+.sidebar {
+  width: 180px;
+  background: #242347;
+  color: #fff;
+  position: fixed;
+  top: 0; left: 0; bottom: 0;
+  box-shadow: 2px 0 12px rgba(0,0,0,0.15);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 200;
 }
 
-/* Matrix effect */
-.matrix {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
+.sidebar .avatar {
+  padding: 24px 0 12px 0;
+  text-align: center;
 }
 
-.matrix span {
-    position: absolute;
-    color: #00ff00;
-    font-size: 18px;
-    white-space: nowrap;
-    font-family: 'Courier New', Courier, monospace;
-    animation: fall 5s linear infinite;
-    will-change: transform;
+.sidebar .avatar img {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  box-shadow: 0 2px 12px #1112;
+  margin-bottom: 8px;
 }
 
-/* Başlangıçtaki stiller */
-.center-message, .center-hacking {
-    transition: all 0.5s ease; /* Yumuşak geçiş efekti */
+.sidebar h2 {
+  font-size: 1.1em;
+  font-weight: 600;
+  letter-spacing: 1px;
+  margin: 0;
 }
 
-/* İlk div kaybolduğunda */
-.center-message {
-    opacity: 1;
-    transform: translateY(0); /* Başlangıç konumu */
+.sidebar nav {
+  width: 100%;
+  margin-top: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
-.center-message.hide {
-    opacity: 0; /* Görünürlüğü kaybettirir */
-    transform: translateY(-20px); /* Yukarı kaydırma efekti */
+.sidebar nav a {
+  color: #fff;
+  text-decoration: none;
+  padding: 12px 0;
+  text-align: center;
+  font-size: 1em;
+  transition: background .16s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-left: 3px solid transparent;
 }
 
-/* İkinci div geldiğinde */
-.center-hacking {
-    opacity: 0;
-    transform: translateY(20px); /* Başlangıçta aşağıda görünür */
-    position: absolute; /* absolute positioning kullanarak ekranın ortasında olacak */
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%); /* Ekranın tam ortasına yerleştirir */
-    width: 1500px;
-    height: 700px;
+.sidebar nav a.active,
+.sidebar nav a:hover {
+  background: #37369a;
+  border-left: 3px solid #7C5FFF;
+  color: #fff;
 }
 
-.center-hacking.show {
-    opacity: 1;
-    transform: translate(-50%, -50%); /* Konumunu yerine yerleştir */
+.sidebar nav i {
+  font-size: 1.6em;
+  margin-bottom: 4px;
 }
 
-/* Center message styling */
-.center-message {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    z-index: 10;
-    padding: 20px;
-    padding-bottom: 60px;
-    opacity: 1;
-    border: 2px solid #00ff00; 
-    border-radius: 10px; 
-    box-shadow: 0 0 15px rgba(0, 255, 0, 0.7); 
-    background-color: rgba(0, 0, 0, 0.8); 
+.sidebar nav span {
+  font-size: 0.88em;
+  letter-spacing: 1px;
 }
 
-.center-message h1 {
-    font-size: 48px;
-    margin-bottom: 10px;
+.main-content {
+  margin-left: 180px;
+  padding: 0 32px;
+  max-width: 900px;
 }
 
-.center-message p {
-    font-size: 20px;
-    margin-bottom: 20px;
-}
-
-.center-message a {
-    color: #00ff00;
-    text-decoration: none;
-    font-size: 20px;
-    border: 2px solid #00ff00;
-    padding: 10px 20px;
-    border-radius: 5px;
-    transition: 0.3s;
-}
-
-.center-message a:hover {
-    background-color: #00ff00;
-    color: black;
-}
-
-/* Keyframes for matrix effect */
-@keyframes fall {
-    0% {
-        transform: translateY(-100vh); 
-    }
-    100% {
-        transform: translateY(100vh); 
-    }
-}
-
-/* Second message styling */
-.center-hacking {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-    text-align: center;
-    z-index: 10;
-    opacity: 1;
-    border: 2px solid #00ff00; 
-    border-radius: 10px; 
-    box-shadow: 0 0 15px rgba(0, 255, 0, 0.7); 
-    background-color: rgba(0, 0, 0, 0.8); 
-    width: 1500px;
-    height: 700px;
-    margin: 0;
-}
-
-.message-left {
-    position: absolute; /* Konumlandırma hatası düzeltildi */
-    top: 0;
-    left: 0;
-    text-align: center;
-    z-index: 10;
-    opacity: 1;
-    border: 2px solid #00ff00; 
-    border-radius: 10px; 
-    box-shadow: 0 0 15px rgba(0, 255, 0, 0.7); 
-    background-color: rgba(0, 0, 0, 0.8); 
-    width: 400px;
-    height: 700px;
-}
-
-.message-left img {
-    width: 300px;
-    height: 230px;
-    border-radius: 50%;
-    opacity: 0.5;
-    transition: all 0.3s ease;
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5);
-    filter: brightness(1.2) contrast(1.1);
-}
-
-
-.profile-section {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: rgba(0, 0, 0, 0.8);
-    padding: 30px;
-    border-radius: 15px;
-    box-shadow: 0 0 15px rgba(0, 255, 0, 0.7);
-    z-index: 100;
-    width: 300px;
-    text-align: center;
-}
-
-.profile-info {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.profile-image {
-    border-radius: 50%;
-    width: 100px;
-    height: 100px;
-    margin-bottom: 20px;
-    box-shadow: 0 0 15px rgba(0, 255, 0, 0.7);
-}
-
-.profile-text h3 {
-    color: #00ff00;
-    margin-bottom: 10px;
-}
-
-.profile-text p {
-    color: #b5ffb1;
-    margin-bottom: 20px;
-    font-size: 16px;
-}
-
-.profile-link {
-    color: #00ff00;
-    font-size: 18px;
-    text-decoration: none;
-    padding: 10px 10px;
-    border: 2px solid #00ff00;
-    border-radius: 5px;
-    transition: 0.3s;
-}
-
-.profile-link:hover {
-    background-color: #00ff00;
-    color: black;
-}
-
-/* Geliştirme bölümüne uygun düzenlemeler */
-.profil-gelisim {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0.9);
-    position: relative;
-}
-
-/* Profil kısmındaki içeriklerin hizalanması */
-.message-left, .message-right {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-}
-
-.message-left img {
-    max-width: 200px;
-    max-height: 200px;
-    border-radius: 50%;
-}
-
-/* Profil ve dünya düzeni */
-#second-message {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.message-left {
-    margin-right: 20px;
-}
-
-.message-right-container {
-    margin:0px;
-    padding:0px;
-    position: absolute;
-    left:420px;
-    top:20px;
-    width: 1050px;
-    height: 666px;
-    border-radius: 10px;
-    border:1px solid yellowgreen;
-}
-
-.tab {
-    overflow: hidden;
-    border: 1px solid #ccc;
-    color:white;
+@media (max-width:600px) {
+  .sidebar {
+    width: 100vw;
+    position: static;
+    flex-direction: row;
+    justify-content: space-around;
+    height: 60px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.18);
   }
-  
-  /* Style the buttons inside the tab */
-  .tab button {
-    background-color: inherit;
-    float: left;
-    border: none;
-    outline: none;
-    cursor: pointer;
-    padding: 14px 16px;
-    transition: 0.3s;
-    font-size: 17px;
-  }
-  
-  /* Change background color of buttons on hover */
-  .tab button:hover {
-    background-color: #ddd;
-  }
-  
-  /* Create an active/current tablink class */
-  .tab button.active {
-    background-color: #ccc;
-  }
-  
-  /* Style the tab content */
-  .tabcontent {
+  .sidebar .avatar, .sidebar h2, .sidebar nav span {
     display: none;
-    padding: 6px 12px;
-    border: 1px solid #ccc;
-    border-top: none;
-    color:white;
+  }
+  .main-content {
+    margin-left: 0;
+    padding: 0 6vw;
+  }
 }
 
-
-/* Tab container */
-.tab {
-    overflow: hidden;
-    border: 1px solid #333;
-    color: #0f0; /* Neon green text */
-    background-color: #000;
+.hero {
+  text-align: center;
+  padding: 64px 0 0 0;
 }
 
-/* Style the buttons inside the tab */
-.tab button {
-    border-radius: 10px;
-    background-color: inherit;
-    float: left;
-    border: 1px solid #333;
-    outline: none;
-    cursor: pointer;
-    padding: 14px 16px;
-    transition: 0.3s;
-    font-size: 17px;
-    color: #0f0; /* Neon green text */
-    text-transform: uppercase;
-    font-family: 'Courier New', Courier, monospace;
-    letter-spacing: 1px;
+.hero h1 {
+  font-size: 2.7em;
+  font-weight: 700;
+  margin: 0;
 }
 
-.tab button:hover {
-    background-color: #0f0; /* Neon green hover effect */
-    color: black;
-    box-shadow: 0 0 10px 2px #0f0; /* Glow effect */
+.hero p {
+  opacity: .77;
+  font-size: 1.2em;
+  margin-top: 10px;
 }
 
-.tab button.active {
-    background-color: #333;
-    color: #0f0;
-    box-shadow: 0 0 15px 3px #0f0; /* More intense glow when active */
+.hero-img {
+  width: 75%;
+  max-width: 340px;
+  border-radius: 40px;
+  margin: 40px auto 0 auto;
+  display: block;
+  box-shadow: 0 4px 32px #38306a88;
 }
 
-
-
-/* Active tab content */
-.tabcontent.active {
-    display: block;
-    box-shadow: 0 0 15px 5px #0f0;
+.about, .portfolio, .contact {
+  margin: 56px 0;
+  padding: 0 0 24px 0;
 }
 
-
-/* Tab content styles for the hacker theme */
-.tabcontent {
-    display: none;
-    padding: 30px;
-    background-color: #111; /* Very dark background to enhance the neon effect */
-    color: #0f0; /* Neon green text color */
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 18px;
-    border: 2px solid #333; /* Dark border */
-    border-radius: 10px;
-    box-shadow: 0 0 15px 5px #0f0; /* Neon glow effect */
-    text-align: left;
-    letter-spacing: 1px;
-    line-height: 1.6;
-    height: 555px; 
-    overflow-y: auto; 
-    background-image: url('https://www.transparenttextures.com/patterns/asfalt-dark.png'); 
-    background-size: cover;
+.about h2,
+.portfolio h2,
+.contact h2 {
+  font-size: 1.6em;
+  color: #7C5FFF;
+  font-weight: 700;
 }
 
-.tabcontent.active {
-    display: block;
-    box-shadow: 0 0 20px 7px #0f0; 
-    transition: box-shadow 0.3s ease-in-out;
-}
-.tabcontent::-webkit-scrollbar {
-    width: 12px; /* Width of the scrollbar */
+hr {
+  border: none;
+  border-top: 2px solid #37369a;
+  margin: 10px 0 28px 0;
+  width: 160px;
 }
 
-.tabcontent::-webkit-scrollbar-track {
-    background: #222; 
-    border-radius: 10px;
+.skills h3 {
+  margin-top: 24px;
+  font-size: 1.05em;
 }
 
-.tabcontent::-webkit-scrollbar-thumb {
-    background-color: #0f0; /* Color of the scrollbar thumb (the part that moves) */
-    border-radius: 10px;
-    border: 2px solid #222; /* Adding a border to the thumb to make it pop */
+.skills label {
+  display: block;
+  margin: 12px 0 4px 0;
 }
 
-.tabcontent::-webkit-scrollbar-thumb:hover {
-    background-color: #33ff33; /* Hover effect for the thumb */
+.bar {
+  background: #292859;
+  border-radius: 6px;
+  height: 18px;
+  width: 100%;
+  margin-bottom: 7px;
+  overflow: hidden;
 }
 
-/* Add a header style for educational content */
-.tabcontent h1 {
-    font-size: 28px;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    margin-bottom: 20px;
-    color: #0f0;
-    text-shadow: 0 0 10px #0f0, 0 0 20px #0f0;
-    border-bottom: 2px solid #0f0;
-    padding-bottom: 10px;
+.bar div {
+  background: linear-gradient(90deg, #7C5FFF 50%, #37369a 100%);
+  height: 100%;
+  border-radius: 6px;
+  color: #fff;
+  font-size: 0.95em;
+  padding-left: 8px;
+  line-height: 18px;
 }
 
-/* Paragraphs for the content */
-.tabcontent p {
-    color: #b2ff66; /* A lighter neon green for text */
-    font-size: 18px;
-    line-height: 1.8;
-    margin-bottom: 15px;
+.stats {
+  display: flex;
+  gap: 28px;
+  margin: 32px 0;
 }
 
-/* Code block styling to enhance hacker theme */
-.tabcontent pre {
-    background-color: #111; /* Dark background */
-    border: 1px solid #333;
-    border-radius: 5px;
-    padding: 15px;
-    color: #33ff33; /* Neon green color for code */
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 16px;
-    overflow-x: auto;
-    box-shadow: 0 0 5px 2px #0f0;
-    margin-top: 20px;
+.stats div {
+  background: #242347;
+  padding: 18px 14px;
+  border-radius: 14px;
+  text-align: center;
+  font-size: 1.1em;
+  min-width: 90px;
 }
 
-/* Links in the tabcontent */
-.tabcontent a {
-    color: #0f0;
-    text-decoration: none;
-    border-bottom: 1px solid #0f0;
-    transition: all 0.3s ease;
+.stats b {
+  font-size: 1.5em;
 }
 
-.tabcontent a:hover {
-    color: #33ff33;
-    text-decoration: underline;
-    box-shadow: 0 0 10px 2px #33ff33; /* Neon underline effect */
+.stats span {
+  font-size: .9em;
+  color: #b6b6df;
+  display: block;
+  margin-top: 3px;
 }
 
-/* Styling for bullet lists */
-.tabcontent ul {
-    list-style-type: square;
-    margin-left: 20px;
+.button {
+  background: #7C5FFF;
+  color: #fff;
+  padding: 10px 24px;
+  border-radius: 13px;
+  text-decoration: none;
+  margin-top: 16px;
+  display: inline-block;
+  font-size: 1.1em;
+  transition: background 0.17s;
+}
+.button:hover {
+  background: #493dbe;
 }
 
-.tabcontent ul li {
-    font-size: 16px;
-    margin-bottom: 8px;
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(170px,1fr));
+  gap: 18px;
+  margin-top: 10px;
 }
 
-/* Styling for numbered lists */
-.tabcontent ol {
-    list-style-type: decimal;
-    margin-left: 20px;
+.gallery img {
+  width: 100%;
+  border-radius: 14px;
+  box-shadow: 0 4px 14px #23238595;
+  object-fit: cover;
+  height: 140px;
 }
 
-.tabcontent ol li {
-    font-size: 16px;
-    margin-bottom: 8px;
+.contact-info {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+  font-size: 1.1em;
 }
 
-#container {
-    position: relative;
-    width: 100%;
-    height: 100vh;
-    overflow: hidden;
+.contact-info div {
+  background: #2e2c57;
+  padding: 8px 19px;
+  border-radius: 10px;
 }
 
-.flying-text {
-    position: absolute;
-    color: lime; /* Yeşil renk */
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 24px;
-    white-space: nowrap;
-    animation: moveDown linear; /* Animasyon ekle */
-}
-@keyframes moveDown {
-    from {
-        transform: translateY(-100px); /* Yukarıdan başla */
-        }
-    to {
-        transform: translateY(100vh); /* Aşağıya doğru hareket et */
-        }
+.contact-info i {
+  margin-right: 7px;
+  color: #7C5FFF;
 }
 
-@media (max-width: 768px) {
-        .center-message h1 {
-            display: none;
-        }
-        .center-message h2 {
-            display: none;
-        }
-        .center-message a {
-            display: none;
-        }
-        .center-message span {
-            display: none;
-        }
-        #second-message {
-            display: none;
-        }
-        #profil-android {
-            display: block;
-        }
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 18px;
 }
 
-@media (min-width: 768px) {
-    #profil-android {
-        display: none;
-    }
+form input, form textarea {
+  background: #232243;
+  border: none;
+  color: #fff;
+  padding: 11px 18px;
+  border-radius: 7px;
+  font-size: 1.05em;
 }
-      
+
+form textarea {
+  min-height: 70px;
+  resize: vertical;
+}
+
+form button {
+  background: #7C5FFF;
+  color: #fff;
+  border: none;
+  padding: 11px;
+  border-radius: 10px;
+  font-size: 1.08em;
+  cursor: pointer;
+  transition: background .16s;
+}
+form button:hover {
+  background: #493dbe;
+}
+
+footer {
+  text-align: center;
+  margin: 38px 0 12px 0;
+  font-size: 1em;
+  opacity: 0.67;
+}
+
+::-webkit-scrollbar {
+  width: 9px;
+  background: #25255a;
+}
+::-webkit-scrollbar-thumb {
+  background: #7C5FFF;
+  border-radius: 8px;
+}
