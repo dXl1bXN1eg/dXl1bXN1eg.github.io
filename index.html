@@ -1,90 +1,428 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>dXl1bXN1eg | Kişisel Web Sitesi</title>
-  <link rel="stylesheet" href="styles/style.css">
-  <script src="https://kit.fontawesome.com/5b5629ecb9.js" crossorigin="anonymous"></script>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome (ikonlar) -->
+  <script src="https://kit.fontawesome.com/5b5629ecb9.js" crossorigin="anonymous" defer></script>
+
+  <style>
+    :root{
+      --bg: #0f0e17;
+      --card: #11101b;
+      --muted: #9aa0c7;
+      --accent: #7C5FFF;
+      --accent-2: #493dbe;
+      --glass: rgba(255,255,255,0.04);
+      --glass-2: rgba(124,95,255,0.06);
+      --radius: 14px;
+      --max-width: 1120px;
+      --sidebar-w: 220px;
+      --glass-border: rgba(255,255,255,0.03);
+    }
+
+    .theme-light{
+      --bg: #f6f7fb;
+      --card: #ffffff;
+      --muted: #5b5f79;
+      --accent: #5b3bdf;
+      --accent-2: #3e2fb8;
+      --glass: rgba(15,15,21,0.03);
+      --glass-2: rgba(91,59,223,0.06);
+      --glass-border: rgba(0,0,0,0.04);
+      color-scheme: light;
+    }
+
+    *{box-sizing: border-box}
+    html,body{
+      height:100%;
+      margin:0;
+      background: radial-gradient(1200px 600px at 10% 10%, rgba(124,95,255,0.08), transparent 8%),
+                  linear-gradient(180deg, var(--bg), #0b0b10 140%);
+      font-family: Inter, "Segoe UI", Montserrat, Arial, sans-serif;
+      color: #e9eaf6;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      scroll-behavior:smooth;
+    }
+
+    .app {
+      display:flex;
+      min-height:100vh;
+      max-width:var(--max-width);
+      margin: 28px auto;
+      gap: 28px;
+      padding: 20px;
+    }
+
+    .sidebar {
+      width: var(--sidebar-w);
+      min-width: 160px;
+      background: linear-gradient(180deg, var(--card), rgba(17,16,27,0.94));
+      border-radius: var(--radius);
+      padding: 20px;
+      box-shadow: 0 8px 30px rgba(2,2,6,0.6);
+      border: 1px solid var(--glass-border);
+      display:flex;
+      flex-direction:column;
+      gap: 18px;
+      position:sticky;
+      top:24px;
+      height: fit-content;
+    }
+
+    .brand {
+      display:flex;
+      gap:12px;
+      align-items:center;
+    }
+    .brand img{
+      width:56px;height:56px;border-radius:12px;object-fit:cover;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.5);
+      border:1px solid var(--glass-border);
+    }
+    .brand .title{
+      font-weight:700;font-family: Montserrat, Inter; letter-spacing:0.6px;
+    }
+    .brand .sub{ font-size:0.85rem; color:var(--muted); margin-top:4px; }
+
+    nav.navlinks{
+      display:flex;flex-direction:column; gap:8px;
+      margin-top:4px;
+    }
+    nav.navlinks a{
+      display:flex;gap:12px;align-items:center;
+      text-decoration:none;color:inherit;padding:10px;border-radius:10px;
+      transition:all .18s; font-weight:600;
+      border:1px solid transparent;
+    }
+    nav.navlinks a i{ width:24px;text-align:center; font-size:1.05rem;}
+    nav.navlinks a span{ font-size:0.95rem; color:var(--muted); }
+    nav.navlinks a:hover,
+    nav.navlinks a.active{
+      background: linear-gradient(90deg, var(--glass-2), transparent);
+      color: #fff;
+      transform: translateX(4px);
+      border-left:3px solid var(--accent);
+    }
+
+    .sidebar .actions{
+      margin-top:auto; display:flex; gap:8px; align-items:center; justify-content:space-between;
+    }
+    .btn {
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      border: none; padding:8px 12px; color:#fff; border-radius:10px; cursor:pointer;
+      font-weight:600; box-shadow: 0 8px 22px rgba(76,52,170,0.18);
+      display:inline-flex; gap:8px; align-items:center;
+    }
+    .ghost {
+      background: transparent; border:1px solid var(--glass-border); color:var(--muted);
+      padding:8px 10px; border-radius:10px; cursor:pointer;
+    }
+
+    main.content{
+      flex:1;
+      min-width:0;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+      border-radius: var(--radius); padding:28px;
+      box-shadow: 0 8px 34px rgba(3,3,10,0.5);
+      border:1px solid var(--glass-border);
+    }
+
+    .hero {
+      display:flex; gap:20px; align-items:center; justify-content:space-between;
+      flex-wrap:wrap;
+    }
+    .hero-left {
+      max-width: 62%;
+      min-width:260px;
+    }
+    .hero h1{
+      margin:0;font-size:clamp(1.6rem, 2.6vw, 2.4rem);
+      line-height:1.04;
+    }
+    .hero h1 .accent { color: var(--accent); background: linear-gradient(90deg, rgba(124,95,255,0.12), transparent); padding:4px 8px; border-radius:8px; }
+    .hero p{ margin:10px 0 0 0; color:var(--muted); font-size:1rem; }
+
+    .hero-right{
+      display:flex; align-items:center; gap:12px; justify-content:center;
+      min-width:180px;
+    }
+    .profile {
+      width:160px;height:160px;border-radius:20px; overflow:hidden; flex-shrink:0;
+      box-shadow: 0 18px 40px rgba(39,35,88,0.45); border:1px solid var(--glass-border);
+    }
+    .profile img{ width:100%; height:100%; object-fit:cover; display:block; }
+
+    .card-section{ margin-top:28px; display:grid; gap:18px; }
+    .card{
+      background: linear-gradient(180deg, rgba(255,255,255,0.012), rgba(255,255,255,0.006));
+      padding:18px; border-radius:12px; border:1px solid var(--glass-border);
+    }
+
+    .skills{
+      display:grid; grid-template-columns: 1fr 220px; gap:18px; align-items:start;
+    }
+    .skill-item{ margin-bottom:12px; }
+    .skill-item label{ display:block; font-weight:600; margin-bottom:8px; color:var(--muted); }
+    .progress {
+      height:12px; background: rgba(255,255,255,0.03); border-radius:8px; overflow:hidden;
+      box-shadow: inset 0 -2px 6px rgba(0,0,0,0.35);
+    }
+    .progress .bar-fill {
+      display:block; height:100%; width:0; border-radius:8px; background:linear-gradient(90deg,var(--accent),var(--accent-2));
+      transition: width .9s cubic-bezier(.2,.9,.2,1);
+    }
+
+    .stats {
+      display:flex; gap:12px; margin-top:12px; flex-wrap:wrap;
+    }
+    .stat{
+      background: linear-gradient(180deg, rgba(255,255,255,0.01), transparent);
+      padding:12px 14px; border-radius:10px; text-align:center; min-width:110px;
+    }
+    .stat b{ display:block; font-size:1.25rem; }
+    .stat span{ color:var(--muted); font-size:0.9rem }
+
+    .download-cta { margin-top:14px; display:inline-flex; gap:10px; align-items:center; }
+
+    .gallery {
+      display:grid; grid-template-columns: repeat(auto-fit, minmax(180px,1fr)); gap:14px;
+    }
+    .gallery figure{
+      margin:0; overflow:hidden; border-radius:12px; position:relative;
+      height:160px; box-shadow: 0 10px 30px rgba(17,16,27,0.6); border:1px solid var(--glass-border);
+      transition:transform .28s, box-shadow .28s;
+    }
+    .gallery img{ width:100%; height:100%; object-fit:cover; display:block; transition:transform .6s }
+    .gallery figure:hover{ transform: translateY(-6px); box-shadow: 0 24px 60px rgba(17,16,27,0.75); }
+    .gallery figure:hover img{ transform:scale(1.07); }
+
+    .contact-grid{ display:grid; grid-template-columns: 1fr 360px; gap:18px; align-items:start; }
+    .contact-info{ display:flex; flex-direction:column; gap:10px; }
+    .contact-pill{ display:flex; gap:10px; align-items:center; padding:10px; border-radius:10px; background:var(--glass); border:1px solid var(--glass-border); color:var(--muted) }
+    .contact-pill i{ width:28px; text-align:center; color:var(--accent) }
+    form.contact-form{ display:flex; flex-direction:column; gap:10px; }
+    form input, form textarea{
+      background:transparent; border:1px solid var(--glass-border); padding:12px; border-radius:10px; color:inherit;
+    }
+    form button{ align-self:flex-start; margin-top:6px; }
+
+    footer{ text-align:center; margin-top:18px; color:var(--muted); font-size:0.95rem; }
+
+    @media (max-width:1000px){
+      .hero-left{ max-width:100%;}
+      .app{ padding:16px; gap:16px; margin: 16px; }
+      .sidebar{ position:relative; width:100%; flex-direction:row; align-items:center; justify-content:space-between; padding:12px 14px; height:64px; border-radius:12px; }
+      nav.navlinks{ display:flex; flex-direction:row; gap:6px; overflow:auto; margin-left:8px; }
+      nav.navlinks a{ padding:8px; font-size:0.9rem; }
+      .profile{ width:110px; height:110px; border-radius:14px; }
+      main.content{ padding:18px; }
+      .content .card-section{ grid-auto-rows: auto; }
+      .contact-grid{ grid-template-columns: 1fr; }
+      .skills{ grid-template-columns: 1fr; }
+    }
+
+    @media (max-width:640px){
+      .app{ flex-direction:column; margin:12px; }
+      .sidebar{ border-radius:12px; }
+      .brand .sub{ display:none; }
+      .hero-right{ width:100%; justify-content:flex-start; }
+      .profile{ width:92px;height:92px; }
+      .gallery figure{ height:120px; }
+    }
+
+    a:focus, button:focus, input:focus, textarea:focus{ outline: 3px solid rgba(124,95,255,0.16); outline-offset:2px; }
+    .sr-only{ position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden; }
+
+    @media (prefers-reduced-motion:reduce){
+      *{ transition:none !important; animation:none !important; scroll-behavior:auto !important;}
+    }
+  </style>
 </head>
 <body>
-  <aside class="sidebar">
-    <div class="avatar">
-      <img src="profil.png" alt="Avatar">
-      <h2>dXl1bXN1eg</h2>
-    </div>
-    <nav>
-      <a href="#home" class="active"><i class="fas fa-home"></i><span>Anasayfa</span></a>
-      <a href="#about"><i class="fas fa-user"></i><span>Hakkımda</span></a>
-      <a href="#portfolio"><i class="fas fa-images"></i><span>Fotoğraflar</span></a>
-      <a href="#contact"><i class="fas fa-envelope"></i><span>İletişim</span></a>
-    </nav>
-  </aside>
+  <div class="app">
 
-  <div class="main-content" id="home">
-    <section class="hero">
-      <h1>Ben <span style="color: #7C5FFF;">dXl1bXN1eg</span></h1>
-      <p>Yazılım geliştirici ve teknoloji tutkunu</p>
-      <img src="profil.png" alt="Profil" class="hero-img">
-    </section>
-
-    <section class="about" id="about">
-      <h2>Hakkımda</h2>
-      <hr>
-      <p>Merhaba! Ben dXl1bXN1eg. Kod yazmayı, yeni teknolojilerle uğraşmayı ve öğrenmeyi seviyorum. Projeler üretiyor ve kendimi sürekli geliştiriyorum.</p>
-      <div class="skills">
-        <h3>Yeteneklerim</h3>
+    <aside class="sidebar" aria-label="Site navigasyonu">
+      <div class="brand">
+        <img src="profil.png" alt="Profil resmi">
         <div>
-          <label>HTML/CSS</label>
-          <div class="bar"><div style="width:90%">90%</div></div>
-        </div>
-        <div>
-          <label>JavaScript</label>
-          <div class="bar"><div style="width:75%">75%</div></div>
-        </div>
-        <div>
-          <label>Python</label>
-          <div class="bar"><div style="width:85%">85%</div></div>
+          <div class="title">dXl1bXN1eg</div>
+          <div class="sub">Yazılım Geliştirici • Türkiye</div>
         </div>
       </div>
-      <div class="stats">
-        <div><b>10+</b><span>Proje</span></div>
-        <div><b>5+</b><span>Mutlu Müşteri</span></div>
-        <div><b>20+</b><span>Toplantı</span></div>
-      </div>
-      <a href="#" class="button"><i class="fas fa-download"></i> Özgeçmişi İndir</a>
-    </section>
 
-    <section class="portfolio" id="portfolio">
-      <h2>Fotoğraflarım</h2>
-      <hr>
-      <div class="gallery">
-        <img src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80" alt="Galeri">
-        <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80" alt="Galeri">
-        <img src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=400&q=80" alt="Galeri">
-        <img src="https://images.unsplash.com/photo-1519985176271-adb1088fa94c?auto=format&fit=crop&w=400&q=80" alt="Galeri">
-      </div>
-    </section>
+      <nav class="navlinks" aria-label="Ana bölümler">
+        <a href="#home" class="active"><i class="fas fa-home" aria-hidden="true"></i><span>Anasayfa</span></a>
+        <a href="#about"><i class="fas fa-user" aria-hidden="true"></i><span>Hakkımda</span></a>
+        <a href="#portfolio"><i class="fas fa-images" aria-hidden="true"></i><span>Fotoğraflar</span></a>
+        <a href="#contact"><i class="fas fa-envelope" aria-hidden="true"></i><span>İletişim</span></a>
+      </nav>
 
-    <section class="contact" id="contact">
-      <h2>İletişim</h2>
-      <hr>
-      <div class="contact-info">
-        <div><i class="fas fa-map-marker-alt"></i> İstanbul, Türkiye</div>
-        <div><i class="fas fa-phone"></i> +90 555 555 55 55</div>
-        <div><i class="fas fa-envelope"></i> mail@example.com</div>
+      <div class="actions">
+        <button class="btn" id="downloadBtn" type="button"><i class="fas fa-download"></i> Özgeçmiş</button>
+        <div style="display:flex; gap:8px; align-items:center;">
+          <button class="ghost" id="themeToggle" aria-pressed="false" title="Tema değiştir" type="button">
+            <i class="fas fa-sun" aria-hidden="true"></i>
+          </button>
+        </div>
       </div>
-      <form>
-        <input type="text" placeholder="Adınız" required>
-        <input type="email" placeholder="E-posta" required>
-        <input type="text" placeholder="Konu" required>
-        <textarea placeholder="Mesajınız" required></textarea>
-        <button type="submit"><i class="fas fa-paper-plane"></i> Gönder</button>
-      </form>
-    </section>
-    <footer>
-      <small>© 2024 dXl1bXN1eg | Tüm hakları saklıdır.</small>
-    </footer>
+    </aside>
+
+    <main class="content" id="home">
+      <section class="hero card">
+        <div class="hero-left">
+          <h1>Merhaba, ben <span class="accent">dXl1bXN1eg</span></h1>
+          <p>Yazılım geliştirici, açık kaynak meraklısı ve yeni teknolojilerle deney yapmayı seven bir mühendis. Web, otomasyon ve makine öğrenmesi projeleri geliştiriyorum.</p>
+
+          <div style="margin-top:16px; display:flex; gap:12px; align-items:center;">
+            <a class="btn" href="#contact" id="hireBtn"><i class="fas fa-briefcase"></i> İş birliği</a>
+            <a class="ghost" href="#portfolio">Projelerime gözat</a>
+          </div>
+        </div>
+
+        <div class="hero-right">
+          <figure class="profile">
+            <img src="profil.png" alt="Profil fotoğrafı" loading="lazy">
+          </figure>
+        </div>
+      </section>
+
+      <section class="card-section">
+        <article id="about" class="card" aria-labelledby="about-title">
+          <h2 id="about-title" style="margin:0 0 8px 0; color:var(--accent); font-family:Montserrat;">Hakkımda</h2>
+          <p style="color:var(--muted); margin-top:6px">Kod yazmayı seviyorum, yeni teknolojileri takip ediyorum ve açık kaynak projelere katkıda bulunuyorum. Aşağıda bazı yeteneklerim ve istatistiklerim var.</p>
+
+          <div style="margin-top:14px" class="skills">
+            <div>
+              <div class="skill-item">
+                <label>HTML / CSS</label>
+                <div class="progress" data-val="90"><span class="bar-fill" style="width:0"></span></div>
+              </div>
+              <div class="skill-item">
+                <label>JavaScript</label>
+                <div class="progress" data-val="78"><span class="bar-fill" style="width:0"></span></div>
+              </div>
+              <div class="skill-item">
+                <label>Python</label>
+                <div class="progress" data-val="85"><span class="bar-fill" style="width:0"></span></div>
+              </div>
+              <div class="skill-item">
+                <label>React / Django</label>
+                <div class="progress" data-val="72"><span class="bar-fill" style="width:0"></span></div>
+              </div>
+            </div>
+
+            <div>
+              <div class="stats">
+                <div class="stat"><b>10+</b><span>Proje</span></div>
+                <div class="stat"><b>5+</b><span>Mutlu Müşteri</span></div>
+                <div class="stat"><b>20+</b><span>Toplantı</span></div>
+              </div>
+
+              <div class="download-cta">
+                <a class="btn" href="#" id="downloadCv"><i class="fas fa-file-download"></i> Özgeçmişi İndir</a>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article id="portfolio" class="card" aria-labelledby="portfolio-title">
+          <h2 id="portfolio-title" style="margin:0 0 8px 0; color:var(--accent); font-family:Montserrat;">Fotoğraflarım</h2>
+          <p style="color:var(--muted); margin-top:6px">Seçme çalışmalar ve fotoğraflarım.</p>
+
+          <div class="gallery" role="list">
+            <figure role="listitem"><img src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=800&q=80" alt="Galeri 1" loading="lazy"></figure>
+            <figure role="listitem"><img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80" alt="Galeri 2" loading="lazy"></figure>
+            <figure role="listitem"><img src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=800&q=80" alt="Galeri 3" loading="lazy"></figure>
+            <figure role="listitem"><img src="https://images.unsplash.com/photo-1519985176271-adb1088fa94c?auto=format&fit=crop&w=800&q=80" alt="Galeri 4" loading="lazy"></figure>
+          </div>
+        </article>
+
+        <article id="contact" class="card" aria-labelledby="contact-title">
+          <h2 id="contact-title" style="margin:0 0 8px 0; color:var(--accent); font-family:Montserrat;">İletişim</h2>
+          <div class="contact-grid" style="margin-top:8px;">
+            <div>
+              <div class="contact-info">
+                <div class="contact-pill"><i class="fas fa-map-marker-alt"></i><div><strong>İstanbul, Türkiye</strong><div style="color:var(--muted); font-size:0.9rem">Ulaşılabilir</div></div></div>
+                <div class="contact-pill"><i class="fas fa-phone"></i><div><strong>+90 555 555 55 55</strong><div style="color:var(--muted); font-size:0.9rem">Arayın veya mesaj atın</div></div></div>
+                <div class="contact-pill"><i class="fas fa-envelope"></i><div><strong>mail@example.com</strong><div style="color:var(--muted); font-size:0.9rem">E-posta ile iletişime geçin</div></div></div>
+              </div>
+            </div>
+
+            <form class="contact-form" onsubmit="submitForm(event)" aria-label="İletişim formu">
+              <input type="text" name="name" placeholder="Adınız" required aria-required="true" />
+              <input type="email" name="email" placeholder="E-posta" required aria-required="true" />
+              <input type="text" name="subject" placeholder="Konu" required />
+              <textarea name="message" placeholder="Mesajınız" required></textarea>
+              <button type="submit" class="btn"><i class="fas fa-paper-plane"></i> Gönder</button>
+              <div id="formMsg" role="status" aria-live="polite" style="color:var(--muted); margin-top:6px; font-size:0.95rem"></div>
+            </form>
+          </div>
+        </article>
+
+      </section>
+
+      <footer>
+        <small>© <span id="year"></span> dXl1bXN1eg | Tüm hakları saklıdır.</small>
+      </footer>
+    </main>
+
   </div>
+
+  <script>
+    (function(){
+      const yearEl = document.getElementById('year');
+      yearEl.textContent = new Date().getFullYear();
+
+      // theme toggle
+      const themeBtn = document.getElementById('themeToggle');
+      const saved = localStorage.getItem('site-theme') || 'dark';
+      if (saved === 'light') document.body.classList.add('theme-light');
+
+      themeBtn.addEventListener('click', () => {
+        const isLight = document.body.classList.toggle('theme-light');
+        themeBtn.setAttribute('aria-pressed', String(isLight));
+        localStorage.setItem('site-theme', isLight ? 'light' : 'dark');
+      });
+
+      // simple handlers for buttons
+      document.getElementById('downloadBtn').addEventListener('click', e => {
+        e.preventDefault();
+        alert('Özgeçmiş indirilecek (örnek). Gerçek CV linkini ekleyin.');
+      });
+
+      document.getElementById('downloadCv').addEventListener('click', e => {
+        e.preventDefault();
+        alert('Özgeçmiş indir: buraya CV dosyası bağlantısı ekleyin.');
+      });
+
+      // form submit mock
+      window.submitForm = function(ev){
+        ev.preventDefault();
+        const form = ev.target;
+        const msg = document.getElementById('formMsg');
+        msg.textContent = 'Gönderiliyor...';
+        setTimeout(()=> {
+          msg.textContent = 'Mesajınız gönderildi — teşekkürler!';
+          form.reset();
+        }, 900);
+      };
+
+      // progress animation on load
+      window.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('.progress').forEach((el, i) => {
+          const val = el.getAttribute('data-val') || '60';
+          const bar = el.querySelector('.bar-fill');
+          setTimeout(()=> bar.style.width = val + '%', 120 + i*80);
+        });
+      });
+    })();
+  </script>
 </body>
 </html>
