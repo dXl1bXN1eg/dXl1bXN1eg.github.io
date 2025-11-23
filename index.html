@@ -1,204 +1,25 @@
 <!DOCTYPE html>
-<html>
+<html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>dXl1bXN1eg</title>
-    <link rel="stylesheet" href="styles/style.css">
-     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>dXl1bXN1eg | Kişisel Web Sitesi</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="container"></div>
-    <div id="root"></div>
-
-    <!-- React ve Babel kütüphaneleri -->
-    <script src="https://cdn.jsdelivr.net/npm/react@18.2.0/umd/react.production.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-
-    <script type="text/babel">
-        const { useState, useEffect } = React;
-
-        function MarkdownViewer({ markdownUrl }) {
-            const [content, setContent] = useState(''); 
-            const [loading, setLoading] = useState(true); 
-            const [error, setError] = useState(null); 
-
-            useEffect(() => {
-                fetch(markdownUrl)
-                    .then((response) => {
-                        if (!response.ok) {
-                            throw new Error('Dosya yüklenemedi.');
-                        }
-                        return response.text(); 
-                    })
-                    .then((data) => {
-                        setContent(data); 
-                        setLoading(false); 
-                    })
-                    .catch((err) => {
-                        console.error('Fetch error:', err); 
-                        setError('Markdown dosyası alınamadı.');
-                        setLoading(false);
-                    });
-            }, [markdownUrl]); 
-
-            if (loading) {
-                return <p>Yükleniyor...</p>;
-            }
-
-            if (error) {
-                return <p>{error}</p>;
-            }
-
-            return (
-                <div>
-                    <pre>{content}</pre> 
-                </div>
-            );
-        }
-
-        function Start({ handleClick }) {
-            return (
-                <div>
-                    <h1>Risk Almaya Hazır mısınız? ⚡</h1>
-                    <h2>Sınırların ötesine geçmeye cesaret edin. Unutmayın, sorumluluk sizin!</h2>
-                    <br />
-                    <a href="#profil" onClick={handleClick}>Profil</a>
-                    <span>|</span>
-                    <a target="_blank" href="#start">CTF'e Basla</a>
-                    <div id="profil-android">
-                            Bu Siteye Lütfen Telefondan girmeyiniz, Tasarımı bozuluyor :))
-                    </div>
-                </div>
-            );
-        }
-
-        function GitHubProfile() {
-            return (
-                <div className="profile-section">
-                    <h2>GitHub Profilim</h2>
-                    <div className="profile-info">
-                        <img src="profil.png" alt="GitHub Avatar" className="profile-image" />
-                        <div className="profile-text">
-                            <h3>Merhaba, Benim Adım dXl1bXN1eg</h3>
-                            <p>Bir Siber Güvenlik Uzmanı olarak çalışırken, boş zamanlarımda Web Tasarımı, Yapay Zeka ve Masaüstü Projeleri gibi alanlarda projeler geliştiriyorum. Modern teknolojiler ve yaratıcı çözümlerle işlevsel ve estetik uygulamalar oluşturuyorum. GitHub profilimi keşfetmek için aşağıya tıklayın!</p>
-                            <a href="https://github.com/dXl1bXN1eg" target="_blank" className="profile-link">Github</a>
-                            |
-                            <a href="/" className="profile-link">Ana Sayfa</a>
-                        </div>
-                    </div>
-                </div>
-            );
-        }
-
-        function TabContent({ id, title, children, activeTab }) {
-            return (
-                <div id={id} className={`tabcontent ${activeTab === id ? 'active' : ''}`}>
-                    <h3>{title}</h3>
-                    <p>{children}</p>
-                </div>
-            );
-        }
-
-        function MessageRight() {
-            const [activeTab, setActiveTab] = useState("React");
-
-            const handleTabClick = (tab) => {
-                setActiveTab(tab);
-            };
-
-            return (
-                <div className="message-right-container">
-                    <div className="tab">
-                        <button
-                            className={`tablinks ${activeTab === "React" ? "active" : ""}`}
-                            onClick={() => handleTabClick("React")}
-                        >
-                            React JS
-                        </button>
-                        <button
-                            className={`tablinks ${activeTab === "Python" ? "active" : ""}`}
-                            onClick={() => handleTabClick("Python")}
-                        >
-                            Python
-                        </button>
-                        <button
-                            className={`tablinks ${activeTab === "Demo" ? "active" : ""}`}
-                            onClick={() => handleTabClick("Demo")}
-                        >
-                            Siber Güvenlik
-                        </button>
-                    </div>
-
-                    <TabContent id="React" activeTab={activeTab}>
-                        <h1>React Programlama</h1>
-                        <MarkdownViewer markdownUrl="https://raw.githubusercontent.com/dXl1bXN1eg/React-JS/main/README.md" />
-                    </TabContent>
-                    <TabContent id="Python" activeTab={activeTab}>
-                        <h1>Python Programlama</h1>
-                        <MarkdownViewer markdownUrl="https://raw.githubusercontent.com/dXl1bXN1eg/Python/main/README.md" />
-                    </TabContent>
-                    <TabContent id="Demo" activeTab={activeTab}>
-                        <h1>Siber Güvenlik</h1>
-                        <MarkdownViewer markdownUrl="https://raw.githubusercontent.com/dXl1bXN1eg/SOC/main/siber.md" />
-                    </TabContent>
-                </div>
-            );
-        }
-
-        class HelloDünya extends React.Component {
-            constructor() {
-                super();
-                this.state = {
-                    isFirstDivVisible: true,
-                    isSecondDivVisible: false,
-                };
-            }
-
-            render() {
-                const { isFirstDivVisible, isSecondDivVisible } = this.state;
-
-                return (
-                    <div>
-                        {isFirstDivVisible && (
-                            <div
-                                id="center-message-close"
-                                className={`center-message ${isFirstDivVisible ? '' : 'hide'}`}
-                            >
-                                <Start handleClick={() => {
-                                    this.setState({ isFirstDivVisible: false });
-                                    setTimeout(() => {
-                                        this.setState({ isSecondDivVisible: true });
-                                    }, 500);  
-                                }} />
-                            </div>
-                        )}
-
-                        {isSecondDivVisible && (
-                            <div
-                                id="second-message"
-                                className={`center-hacking animate__animated animate__zoomInUp ${isSecondDivVisible ? 'show' : ''}`}
-                            >
-                                <div id="second-left" className="message-left">
-                                    <GitHubProfile />
-                                </div>
-                                <div id="second-right" className="message-right">
-                                    <MessageRight />
-                                </div>
-                            </div>
-                        )}
-                    </div>
-                );
-            }
-        }
-
-        const root = ReactDOM.createRoot(document.getElementById('root'));
-        root.render(<HelloDünya />);
-    </script>
-
-    <script src="scripts/script.js"></script>
-
+  <div class="container">
+    <div class="profile-card">
+      <div class="avatar">
+        <span>👤</span>
+      </div>
+      <h1 class="name">dXl1bXN1eg</h1>
+      <p class="bio">Kişisel web sitesi</p>
+      <!-- Sosyal medya yok -->
+    </div>
+  </div>
+  <footer>
+    2024 &copy; dXl1bXN1eg
+  </footer>
+  <script src="script.js"></script>
 </body>
 </html>
