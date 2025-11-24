@@ -170,14 +170,22 @@
     }
     .skill-item{ margin-bottom:12px; }
     .skill-item label{ display:block; font-weight:600; margin-bottom:8px; color:var(--muted); }
-    .progress {
-      height:12px; background: rgba(255,255,255,0.03); border-radius:8px; overflow:hidden;
-      box-shadow: inset 0 -2px 6px rgba(0,0,0,0.35);
-    }
-    .progress .bar-fill {
-      display:block; height:100%; width:0; border-radius:8px; background:linear-gradient(90deg,var(--accent),var(--accent-2));
-      transition: width .9s cubic-bezier(.2,.9,.2,1);
-    }
+  .progress {
+  background: #ddd;
+  height: 20px;
+  width: 100%;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-top: 5px;
+}
+.bar-fill {
+  display: block;
+  height: 100%;
+  width: 0; /* Başlangıç */
+  background: #4caf50;
+  border-radius: 10px;
+  transition: width 1s ease-in-out;
+}
 
     .stats {
       display:flex; gap:12px; margin-top:12px; flex-wrap:wrap;
@@ -410,21 +418,7 @@
         }, 900);
       };
 
-      // progress animation on load
-      window.addEventListener('DOMContentLoaded', () => {
-        document.querySelectorAll('.progress').forEach((el, i) => {
-          const val = el.getAttribute('data-val') || '60';
-          const bar = el.querySelector('.bar-fill');
-          setTimeout(()=> bar.style.width = val + '%', 120 + i*80);
-        });
-      });
-
-document.addEventListener('DOMContentLoaded', () => {
-  document.querySelectorAll('.progress').forEach(progress => {
-    const value = progress.dataset.val; // data-val değerini al
-    progress.querySelector('.bar-fill').style.width = value + '%'; // barı doldur
-  });
-});
+    
 
       
     })();
