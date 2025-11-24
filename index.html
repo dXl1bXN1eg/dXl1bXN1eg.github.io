@@ -430,16 +430,15 @@
         }, 900);
       };
 
-     document.addEventListener('DOMContentLoaded', () => {
-  document.querySelectorAll('.progress').forEach(progress => {
-    const value = progress.dataset.val;
-    const fill = progress.querySelector('.bar-fill');
-    const text = progress.querySelector('.bar-text');
+     document.querySelectorAll('.progress').forEach(progress => {
+      const value = progress.dataset.val;
+      const fill = progress.querySelector('.bar-fill');
+      const text = progress.querySelector('.bar-text');
     
-    fill.style.width = value + '%';   // bar dolması
-    text.textContent = value + '%';   // sayıyı göster
-  });
-});
+      fill.style.width = value + '%';
+      text.textContent = value + '%';
+    });
+
       
     })();
   </script>
