@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>SYSTEM ALERT</title>
+<style>
+  body {
+    margin: 0;
+    background: black;
+    color: #00ff88;
+    font-family: "Courier New", monospace;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+    text-align: center;
+  }
+
+  .box {
+    animation: glitch 0.3s infinite;
+  }
+
+  h1 {
+    color: red;
+    font-size: 40px;
+  }
+
+  .ip {
+    font-size: 28px;
+    margin-top: 20px;
+    color: #00ff88;
+  }
+
+  .status {
+    margin-top: 20px;
+    font-size: 18px;
+    opacity: 0.8;
+  }
+
+  @keyframes glitch {
+    0% { transform: translate(1px, 1px); }
+    25% { transform: translate(-1px, 0px); }
+    50% { transform: translate(1px, -1px); }
+    75% { transform: translate(-1px, 1px); }
+    100% { transform: translate(0px, 0px); }
+  }
+</style>
+</head>
+<body>
+
+<div class="box">
+  <h1>⚠ UNAUTHORIZED CV ACCESS ⚠</h1>
+  <div class="ip" id="fakeIP"></div>
+  <div class="status">Tracking connection...<br>Collecting metadata...</div>
+</div>
+
+<script>
+  // Rastgele IP üret
+  function randomIP() {
+    return `${Math.floor(Math.random()*255)}.` +
+           `${Math.floor(Math.random()*255)}.` +
+           `${Math.floor(Math.random()*255)}.` +
+           `${Math.floor(Math.random()*255)}`;
+  }
+
+  document.getElementById("fakeIP").innerText =
+    "SOURCE IP: " + randomIP();
+
+  // 3 saniye sonra şaka mesajı ve CV indir
+  setTimeout(() => {
+    document.querySelector(".box").innerHTML = `
+      <h1 style="color:#00ff88">😄 JUST KIDDING</h1>
+      <div style="margin-top:20px">Downloading CV...</div>
+    `;
+
+    setTimeout(() => {
+      window.location.href = "/";
+    }, 1500);
+
+  }, 3000);
+</script>
+
+</body>
+</html>
