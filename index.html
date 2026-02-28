@@ -403,6 +403,13 @@
 
       // theme toggle
       const themeBtn = document.getElementById('themeToggle');
+      if (themeBtn) {
+        themeBtn.addEventListener('click', () => {
+          const isLight = document.body.classList.toggle('theme-light');
+          themeBtn.setAttribute('aria-pressed', String(isLight));
+          localStorage.setItem('site-theme', isLight ? 'light' : 'dark');
+        });
+      }
       const saved = localStorage.getItem('site-theme') || 'dark';
       if (saved === 'light') document.body.classList.add('theme-light');
 
