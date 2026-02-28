@@ -72,9 +72,59 @@ setTimeout(()=>{
     </div>
   `;
 
-  setTimeout(()=>{
-    window.location.href = "mycv.pdf";
-  },1500);
+  setTimeout(() => {
+
+  const overlay = document.createElement("div");
+  overlay.style.position = "fixed";
+  overlay.style.inset = "0";
+  overlay.style.background = "black";
+  overlay.style.color = "#00ff88";
+  overlay.style.fontFamily = "monospace";
+  overlay.style.display = "flex";
+  overlay.style.flexDirection = "column";
+  overlay.style.justifyContent = "center";
+  overlay.style.alignItems = "center";
+  overlay.style.zIndex = "9999";
+
+  overlay.innerHTML = `
+    <div id="scanText">Initializing security scan...</div>
+    <div style="margin-top:15px;font-size:14px;opacity:.7">
+      Please do not unplug your router.
+    </div>
+  `;
+
+  document.body.appendChild(overlay);
+
+  const steps = [
+    "Checking browser integrity...",
+    "Analyzing keyboard heatmap...",
+    "Scanning fridge firmware...",
+    "Contacting NASA mainframe...",
+    "Validating human status...",
+    "User is harmless."
+  ];
+
+  let i = 0;
+  const scanText = document.getElementById("scanText");
+
+  const interval = setInterval(() => {
+    scanText.textContent = steps[i];
+    i++;
+
+    if (i >= steps.length) {
+      clearInterval(interval);
+
+      setTimeout(() => {
+        scanText.textContent = "😄 CV download approved.";
+        setTimeout(() => {
+          window.location.href = "mycv.pdf";
+        }, 1000);
+      }, 800);
+    }
+
+  }, 900);
+
+}, 1500);
 
 },4000);
 </script>
