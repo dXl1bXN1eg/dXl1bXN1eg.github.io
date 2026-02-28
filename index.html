@@ -397,47 +397,40 @@
   </div>
 
   <script>
-    (function(){
-      const yearEl = document.getElementById('year');
-      yearEl.textContent = new Date().getFullYear();
-
-      // theme toggle
-      const themeBtn = document.getElementById('themeToggle');
-      if (themeBtn) {
-        themeBtn.addEventListener('click', () => {
-          const isLight = document.body.classList.toggle('theme-light');
-          themeBtn.setAttribute('aria-pressed', String(isLight));
-          localStorage.setItem('site-theme', isLight ? 'light' : 'dark');
-        });
-      }
-      const saved = localStorage.getItem('site-theme') || 'dark';
-      if (saved === 'light') document.body.classList.add('theme-light');
-
-      themeBtn.addEventListener('click', () => {
-        const isLight = document.body.classList.toggle('theme-light');
-        themeBtn.setAttribute('aria-pressed', String(isLight));
-        localStorage.setItem('site-theme', isLight ? 'light' : 'dark');
-      });
-
-      document.getElementById('downloadCv').addEventListener('click', e => {
-        e.preventDefault();
-        window.location.href = '/surprise.html';
-      });
 
 
-      // form submit mock
-      window.submitForm = function(ev){
-        ev.preventDefault();
-        const form = ev.target;
-        const msg = document.getElementById('formMsg');
-        msg.textContent = 'Gönderiliyor...';
-        setTimeout(()=> {
-          msg.textContent = 'Mesajınız gönderildi — teşekkürler!';
-          form.reset();
-        }, 900);
-      };
+(function(){
 
-    document.addEventListener('DOMContentLoaded', () => {
+  /* ==============================
+     BASIC INIT
+  ============================== */
+
+  const yearEl = document.getElementById('year');
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+  /* ==============================
+     THEME SAFE TOGGLE
+  ============================== */
+
+  const themeBtn = document.getElementById('themeToggle');
+  const savedTheme = localStorage.getItem('site-theme');
+
+  if (savedTheme === 'light') {
+    document.body.classList.add('theme-light');
+  }
+
+  if (themeBtn) {
+    themeBtn.addEventListener('click', () => {
+      const isLight = document.body.classList.toggle('theme-light');
+      themeBtn.setAttribute('aria-pressed', String(isLight));
+      localStorage.setItem('site-theme', isLight ? 'light' : 'dark');
+    });
+  }
+
+  /* ==============================
+     PROGRESS ANIMATION
+  ============================== */
+
   document.querySelectorAll('.progress').forEach(progress => {
     const value = progress.dataset.val;
     const fill = progress.querySelector('.bar-fill');
@@ -446,9 +439,83 @@
     setTimeout(() => {
       fill.style.width = value + '%';
       text.textContent = value + '%';
-    }, 200); // ufak gecikme ile animasyon başlasın
+    }, 300);
   });
-});
+
+  /* ==============================
+     MINI CTF SETUP 😈
+  ============================== */
+
+  // Base64 flag (katman 1)
+  const encodedFlag = "ZmxhZ3tmbG9vcl9pbnNwZWN0b3J9"; // flag{floor_inspector}
+
+  // localStorage katmanı (katman 2)
+  localStorage.setItem("sys_trace", "flag{storage_never_lies}");
+
+  // console katmanı (katman 3)
+  console.log(
+    "%cflag{console_vision}",
+    "color:#7C5FFF;font-size:14px;font-weight:bold;"
+  );
+
+  /* ==============================
+     CV BUTTON EFFECT
+  ============================== */
+
+  const downloadBtn = document.getElementById('downloadCv');
+
+  if (downloadBtn) {
+    downloadBtn.addEventListener('click', e => {
+      e.preventDefault();
+
+      // Glitch efekti
+      document.body.style.transition = "all .15s";
+      document.body.style.filter = "hue-rotate(120deg) contrast(1.3)";
+      
+      const overlay = document.createElement("div");
+      overlay.style.position = "fixed";
+      overlay.style.inset = "0";
+      overlay.style.background = "black";
+      overlay.style.display = "flex";
+      overlay.style.alignItems = "center";
+      overlay.style.justifyContent = "center";
+      overlay.style.color = "#00ff88";
+      overlay.style.fontFamily = "monospace";
+      overlay.style.fontSize = "22px";
+      overlay.style.zIndex = "9999";
+      overlay.innerHTML = `
+        <div style="text-align:center">
+          <div>INITIALIZING TRACE...</div>
+          <div style="margin-top:10px;font-size:14px;opacity:.6">
+            ${atob(encodedFlag)}
+          </div>
+        </div>
+      `;
+
+      document.body.appendChild(overlay);
+
+      setTimeout(() => {
+        window.location.href = "surprise.html";
+      }, 1800);
+    });
+  }
+
+  /* ==============================
+     FORM MOCK
+  ============================== */
+
+  window.submitForm = function(ev){
+    ev.preventDefault();
+    const form = ev.target;
+    const msg = document.getElementById('formMsg');
+    msg.textContent = 'Gönderiliyor...';
+    setTimeout(()=> {
+      msg.textContent = 'Mesajınız gönderildi — teşekkürler!';
+      form.reset();
+    }, 900);
+  };
+
+})();
 
 
       
