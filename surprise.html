@@ -1,84 +1,82 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 <head>
 <meta charset="UTF-8">
-<title>SYSTEM ALERT</title>
+<title>System Alert</title>
 <style>
-  body {
-    margin: 0;
-    background: black;
-    color: #00ff88;
-    font-family: "Courier New", monospace;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    overflow: hidden;
-    text-align: center;
-  }
-
-  .box {
-    animation: glitch 0.3s infinite;
-  }
-
-  h1 {
-    color: red;
-    font-size: 40px;
-  }
-
-  .ip {
-    font-size: 28px;
-    margin-top: 20px;
-    color: #00ff88;
-  }
-
-  .status {
-    margin-top: 20px;
-    font-size: 18px;
-    opacity: 0.8;
-  }
-
-  @keyframes glitch {
-    0% { transform: translate(1px, 1px); }
-    25% { transform: translate(-1px, 0px); }
-    50% { transform: translate(1px, -1px); }
-    75% { transform: translate(-1px, 1px); }
-    100% { transform: translate(0px, 0px); }
-  }
+body{
+  margin:0;
+  background:black;
+  color:#00ff88;
+  font-family:monospace;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+  text-align:center;
+  overflow:hidden;
+}
+.box{
+  animation:glitch .3s infinite;
+}
+h1{
+  color:red;
+  font-size:34px;
+}
+.ip{
+  font-size:24px;
+  margin-top:20px;
+}
+@keyframes glitch{
+  0%{transform:translate(1px,1px)}
+  25%{transform:translate(-1px,0)}
+  50%{transform:translate(1px,-1px)}
+  75%{transform:translate(-1px,1px)}
+  100%{transform:translate(0,0)}
+}
+.hidden{
+  display:none;
+}
 </style>
 </head>
 <body>
 
 <div class="box">
-  <h1>⚠ UNAUTHORIZED CV ACCESS ⚠</h1>
+  <h1>⚠ CV ACCESS MONITORED ⚠</h1>
   <div class="ip" id="fakeIP"></div>
-  <div class="status">Tracking connection...<br>Collecting metadata...</div>
+  <div style="margin-top:15px;">Analyzing connection...</div>
 </div>
 
+<!-- flag{frontend_never_trust_redirects} -->
+
 <script>
-  // Rastgele IP üret
-  function randomIP() {
-    return `${Math.floor(Math.random()*255)}.` +
-           `${Math.floor(Math.random()*255)}.` +
-           `${Math.floor(Math.random()*255)}.` +
-           `${Math.floor(Math.random()*255)}`;
-  }
+function randomIP(){
+  return `${Math.floor(Math.random()*255)}.`+
+         `${Math.floor(Math.random()*255)}.`+
+         `${Math.floor(Math.random()*255)}.`+
+         `${Math.floor(Math.random()*255)}`;
+}
 
-  document.getElementById("fakeIP").innerText =
-    "SOURCE IP: " + randomIP();
+document.getElementById("fakeIP").innerText =
+  "SOURCE IP: " + randomIP();
 
-  // 3 saniye sonra şaka mesajı ve CV indir
-  setTimeout(() => {
-    document.querySelector(".box").innerHTML = `
-      <h1 style="color:#00ff88">😄 JUST KIDDING</h1>
-      <div style="margin-top:20px">Downloading CV...</div>
-    `;
+// console flag (mini CTF part 2)
+console.log("%cflag{check_the_console}", "color:#00ff88;font-size:16px");
 
-    setTimeout(() => {
-      window.location.href = "/";
-    }, 1500);
+// 4 saniye sonra şaka
+setTimeout(()=>{
+  document.body.innerHTML = `
+    <div style="text-align:center">
+      <h1 style="color:#00ff88">😄 ŞAKA YAPTIM</h1>
+      <p>CV indiriliyor...</p>
+    </div>
+  `;
 
-  }, 3000);
+  setTimeout(()=>{
+    window.location.href = "mycv.pdf";
+  },1500);
+
+},4000);
 </script>
 
 </body>
